@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram URL Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0;
+      padding: 20px;
+      background-color: #a3cfcc; /* Purple background color */
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      color: #fff; /* Text color */
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .generate-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #000000; /* Pink button color */
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    /* Mobile responsive styles */
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      .input-box, .generate-button {
+        max-width: 100%;
+      }
+    }
+    
+    /* Styling for generated links */
+    .result a {
+      text-decoration: none;
+      color: #000000; /* Black link color */
+    }
+
+    .result a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Instagram URL Generator</h1>
+    <textarea id="inputBox" class="input-box" placeholder="Paste your input here"></textarea>
+    <button id="generateButton" class="generate-button">Generate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function generateInstagramUrls(input) {
+      const lines = input.split('\n');
+      const result = [];
+      for (const line of lines) {
+        const parts = line.split(':');
+        if (parts.length >= 1) {
+          const username = parts[0];
+          const url = `https://instagram.com/${username}`;
+          result.push(url);
+        }
+      }
+      return result;
+    }
+
+    document.getElementById('generateButton').addEventListener('click', function () {
+      const input = document.getElementById('inputBox').value;
+      const instagramUrls = generateInstagramUrls(input);
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '';
+      for (const url of instagramUrls) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.textContent = url;
+        link.target = '_blank';
+        resultDiv.appendChild(link);
+        resultDiv.appendChild(document.createElement('br'));
+      }
+    });
+  </script>
+</body>
+</html>
